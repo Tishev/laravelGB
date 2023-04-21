@@ -7,13 +7,10 @@ use Illuminate\Http\Request;
 class HomeController extends Controller
 {
     public function index(){
-        return <<<php
-        <h1>Приветствие пользователя </h1>
-        Тут какой-то текст<br>
-        <a href="/" Переход на админ страницу
-php;
+    return view('home');
 
     }
 }
+
 
 //2
