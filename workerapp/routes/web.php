@@ -1,5 +1,7 @@
 <?php
 
+
+use App\Http\Controllers\NewsController;
 use Illuminate\Support\Facades\Route;
 /*
 |--------------------------------------------------------------------------
@@ -13,12 +15,15 @@ use Illuminate\Support\Facades\Route;
 */
 
 
-Route::get('/', [
-    'uses' => 'HomeController@index'
-]);
+Route::get('/', function () {
+    return view('welcome');
+});
 
-Route::get('/admin', [
-    'uses' => 'Admin\IndexController@index'
-]);
+include __DIR__ . '/admin.php';
+
+Route::get('/news', [NewsController::class, 'index'])->name('news.index');
+Route::get('/news/{id}', [NewsController::class, 'show'])
+    ->where('id', '\d+')
+    ->name('news.show');
 
 
