@@ -2,6 +2,7 @@
 
 
 use App\Http\Controllers\NewsController;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 /*
 |--------------------------------------------------------------------------
@@ -25,5 +26,10 @@ Route::get('/news', [NewsController::class, 'index'])->name('news.index');
 Route::get('/news/{id}', [NewsController::class, 'show'])
     ->where('id', '\d+')
     ->name('news.show');
+
+
+Route::match(["POST", "GET", "PUT"], '/test', function(Request $request) {
+    return (int) $request->isMethod('GET');
+});
 
 
