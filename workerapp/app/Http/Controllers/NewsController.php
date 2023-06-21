@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
+use App\Models\News;
+use Illuminate\Contracts\View\View;
 use Illuminate\Http\Request;
 
 
@@ -10,9 +12,10 @@ use Illuminate\Http\Request;
 class NewsController extends Controller
 {
 
-    public function index() 
+    public function index(): View
     {
-        $news = $this->getNews();
+        $model = app(News::class);
+        $news = $model->getNews();
         return view('news.index', [
             'newsList' => $news
         ]);
