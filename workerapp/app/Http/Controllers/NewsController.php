@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Enums\NewsStatus;
 use App\Http\Controllers\Controller;
 use App\Models\News;
+use App\Queries\NewsQueryBuilder;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\Request;
 
@@ -12,22 +14,17 @@ use Illuminate\Http\Request;
 class NewsController extends Controller
 {
 
-    public function index(): View
+    public function index(NewsQueryBuilder $newsQueryBuilder): View
     {
-        $model = app(News::class);
-        $news = $model->getNews();
-        return view('news.index', [
-            'newsList' => $news
-        ]);
+       $news = $newsQueryBuilder->getActiveNews();
+        return view('news.index', ['news' => $news]);
 
     }
 
     public function show(int $id)
     {
-        $news = $this->getNews($id);
-        return view('news.show', [
-            'news' => $news
-        ]);
+       $news = News::findOrFail($id);
+        return view('news.show', ['newsItem' => $news]);
     }
 // private $news = [
 // [

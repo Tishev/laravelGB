@@ -3,11 +3,12 @@ declare(strict_types=1);
 
 namespace App\Models;
 
-use Illuminate\Contracts\Database\Query\Builder;
+use App\Enums\NewsStatus;
+use Illuminate\Contracts\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Builder as EloquentBuilder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Support\Collection;
-use Illuminate\Support\Facades\DB;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class News extends Model
 {
@@ -15,14 +16,34 @@ class News extends Model
 
     protected $table = 'news';
 
-    public function getNews(): Collection
+    protected $fillable = [
+        'title',
+        'author',
+        'status',
+        'description'
+    ];
+
+
+    public function categories(): BelongsToMany
     {
-        return DB::table($this->table)->get();
+        return $this->belongsToMany(Category::class, 'category_has_news',
+    'news_id', 'category_id',);
     }
 
-    public function getNewsById(int $id): mixed
-    {
-        return DB::table($this->table)->find($id);
+    // Scopes
 
+
+    public function scopeActive(EloquentBuilder $query): void
+    {
+        $query->where('active', NewsStatus::ACTIVE->value);
     }
+    public function scopeDraft(EloquentBuilder $query): void
+    {
+        $query->where('active', NewsStatus::DRAFT->value);
+    }
+    public function scopeBlocked(EloquentBuilder $query): void
+    {
+        $query->where('active', NewsStatus::BLOCKED->value);
+    }
+   
 }
