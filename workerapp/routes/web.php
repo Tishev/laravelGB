@@ -5,6 +5,8 @@ use App\Http\Controllers\NewsController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Session;
+use App\Http\Controllers\Admin\ParserController;
+use App\Http\Controllers\SocialProvidersController;
 
 /*
 |--------------------------------------------------------------------------

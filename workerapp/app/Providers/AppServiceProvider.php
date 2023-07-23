@@ -6,6 +6,10 @@ use App\Queries\CategoriesQueryBuilder;
 use App\Queries\NewsQueryBuilder;
 use App\Queries\QueryBuilder;
 use Illuminate\Support\ServiceProvider;
+use App\Services\Contracts\Parser;
+use App\Services\Contracts\Social;
+use App\Services\ParserService;
+use App\Services\SocialService;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -17,6 +21,10 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind(QueryBuilder::class, CategoriesQueryBuilder::class);
         $this->app->bind(QueryBuilder::class, NewsQueryBuilder::class);
 
+              // Services
+
+        $this->app->bind(Parser::class, ParserService::class);
+        $this->app->bind(Social::class, SocialService::class);
     }
 
     /**
