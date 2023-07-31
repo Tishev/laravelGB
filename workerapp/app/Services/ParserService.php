@@ -40,7 +40,9 @@ class ParserService implements Parser
             ],
         ]);
 
-        dd($data);
-        // something else
+        $explode = explode("/", $this->link);
+        $fileName = end($explode);
+
+        Storage::append('parse/' . $fileName . ".txt", json_encode($data));
     }
 }

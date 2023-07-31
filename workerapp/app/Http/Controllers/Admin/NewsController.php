@@ -12,6 +12,8 @@ use App\Http\Requests\news\update;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use App\Services\Contracts\Upload;
+use App\Services\UploadService;
 
 class NewsController extends Controller
 {
